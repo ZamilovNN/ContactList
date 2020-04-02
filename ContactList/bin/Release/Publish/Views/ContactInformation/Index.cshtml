@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ContactList.Models.ContactInformation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Контактная информация</h2>
+
+<p>
+    @Html.ActionLink("Создать вид связи контакта", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Contact.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InfoType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InfoDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contact.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InfoType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InfoDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Карточка", "Edit", new { id=item.ContactInformationID }) |            
+            @Html.ActionLink("Удалить", "Delete", new { id=item.ContactInformationID })
+        </td>
+    </tr>
+}
+
+</table>

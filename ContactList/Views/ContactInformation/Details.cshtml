@@ -1,0 +1,42 @@
+﻿@model ContactList.Models.ContactInformation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ContactInformation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contact.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InfoType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InfoType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InfoDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InfoDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ContactInformationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

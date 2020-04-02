@@ -1,0 +1,94 @@
+﻿@model ContactList.Models.Contact
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Изменить контакт</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>@Model.FullName - @Model.Company.Name</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CompanyID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CompanyID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
+        </div>
+        @Html.ActionLink("Карточка", "Edit", "Company", new { id = Model.CompanyID }, null)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Выбор даты -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.BirthDay, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BirthDay, new { htmlAttributes = new { @class = "form-control", id = "datepicker" } })
+            @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div>
+        <h4>Контактная информация</h4>
+        @foreach (var info in Model.ContactInfomations)
+        {
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayName(info.InfoType.ToString())
+                </dt>
+
+                <dd>
+                    @Html.DisplayName(info.InfoDescription)
+                </dd>
+                @Html.ActionLink("Карточка", "Edit", "ContactInformation", new { id = info.ContactInformationID }, null)
+                @Html.ActionLink("Удалить", "Delete", "ContactInformation", new { id = info.ContactInformationID }, null)
+            </dl>
+        }
+        @Html.ActionLink("Добавить вид связи", "Create", "ContactInformation", new { contactId = Model.ID }, null)
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Вернуться к списку", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
